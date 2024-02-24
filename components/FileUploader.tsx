@@ -1,13 +1,22 @@
 // components/FileUploader.js
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { v5 as uuidv5 } from 'uuid';
 import axios from 'axios';
+import { Button } from './ui/button'; // Adjust the import path as necessary
 
 const FileUploader = () => {
     const [selectedFiles, setSelectedFiles] = useState([]);
+    const fileInputRef = useRef(null);
 
     const handleFileChange = (event) => {
         setSelectedFiles(event.target.files);
+        if (event.target.files.length > 0) {
+            uploadAndProcessFiles(event.target.files);
+        }
+    };
+
+    const triggerFileInput = () => {
+        fileInputRef.current.click();
     };
 
     const uploadAndProcessFiles = async () => {
@@ -45,8 +54,16 @@ const FileUploader = () => {
 
     return (
         <div>
-            <input type="file" multiple onChange={handleFileChange} />
-            <button onClick={uploadAndProcessFiles}>Upload and Process Files</button>
+            <input
+                type="file"
+                multiple
+                onChange={handleFileChange}
+                style={{ display: 'none' }} // Hide the file input
+                ref={fileInputRef}
+            />
+            <Button onClick={triggerFileInput} variant="default" size="default">
+                Upload and Process Files
+            </Button>
         </div>
     );
 };
