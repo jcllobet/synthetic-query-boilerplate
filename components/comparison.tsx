@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-
+import { UploadPdf } from "@/components/uploadPdf";
 export function Comparison() {
   return (
     <>
@@ -12,6 +12,7 @@ export function Comparison() {
           </div>
         </div>
       </div>
+      <UploadPdf />
       <div className="bg-gray-50 border border-gray-200 dark:bg-gray-950 dark:border-gray-800">
         <div className="container grid gap-4 px-4 py-6 md:grid-cols-2 md:py-12 lg:gap-6 lg:px-6">
           <div className="p-4 rounded-lg bg-white shadow">
