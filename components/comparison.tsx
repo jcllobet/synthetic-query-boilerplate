@@ -7,12 +7,14 @@ export function Comparison() {
         <div className="container prose max-w-none text-center">
           <div className="space-y-6">
             <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-              Prompt Visualization
+              Do LLMs dream about Synthetic Sheep?
             </h1>
           </div>
         </div>
       </div>
-      <UploadPdf />
+      <div className="flex justify-center mb-10">
+        <UploadPdf />
+      </div>
       <div className="bg-gray-50 border border-gray-200 dark:bg-gray-950 dark:border-gray-800">
         <div className="container grid gap-4 px-4 py-6 md:grid-cols-2 md:py-12 lg:gap-6 lg:px-6">
           <div className="p-4 rounded-lg bg-white shadow">
@@ -35,9 +37,6 @@ export function Comparison() {
               </p>
             </div>
           </div>
-        </div>
-        <div className="flex justify-center py-6">
-          <Button size="lg">Generate New Prompt</Button>
         </div>
         <div className="container grid gap-4 px-4 py-6 md:grid-cols-2 md:py-12 lg:gap-6 lg:px-6">
           <div className="p-4 rounded-lg bg-white shadow">
