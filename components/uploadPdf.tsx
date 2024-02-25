@@ -1,41 +1,43 @@
 "use client";
 import { useState, useRef } from "react";
-import { v5 as uuidv5 } from "uuid";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { uploadAndProcessFiles } from "@api/uploadProcess";
-
-// Define the DNS namespace
-const NAMESPACE_DNS = "6ba7b810-9dad-11d1-80b4-00c04fd430c8";
-
-const generateUserId = (userIndex: number): string => {
-  return uuidv5(`user_${userIndex}`, NAMESPACE_DNS);
-};
+import R2RClient from "@/app/api/R2RClient"; // Adjust the import path as necessary
 
 export function UploadPdf() {
   const [isUploaded, setIsUploaded] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const client = new R2RClient("http://localhost:8000"); // Initialize your R2RClient
 
-  const handleFileChange = async (
+  const handleFileUpload = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const files = event.target.files;
     if (files && files.length > 0) {
+      const file = files[0]; // Assuming single file upload for simplicity
       console.log("Starting upload...");
 
-      // Prepare file paths and titles for uploadAndProcessFiles
-      const filePaths = Array.from(files).map((file) => file.name); // Simulate file paths with file names
-      const titles = filePaths.reduce((acc, filePath) => {
-        acc[filePath] = `Title: ${filePath}`;
-        return acc;
-      }, {} as { [key: string]: string });
+      // Simulate or derive these values as needed
+      const documentId = "6bae89d8-866c-55f1-9641-0044416debd8"; // Example, generate as needed
+      const metadata = {
+        user_id: "53ca70df-95f2-5c93-832b-5681ad3bf497",
+        chunk_prefix: "Title: Meditations - Marcus Aurelius",
+      };
+      const settings = {};
 
-      const settings = {}; // Define any settings if necessary
-
-      // Call uploadAndProcessFiles with simulated file paths and titles
-      await uploadAndProcessFiles(filePaths, titles, settings);
-      console.log("File uploaded.");
-      setIsUploaded(true);
+      try {
+        const uploadResponse = await client.uploadAndProcessFile(
+          documentId,
+          file,
+          metadata,
+          settings
+        );
+        console.log("Upload response:", uploadResponse);
+        setIsUploaded(true);
+      } catch (error) {
+        console.error("Upload failed with error:", error);
+        setIsUploaded(false);
+      }
     }
   };
 
@@ -59,8 +61,7 @@ export function UploadPdf() {
           className="sr-only"
           id="upload-pdf"
           type="file"
-          multiple // Allow multiple files if needed
-          onChange={handleFileChange}
+          onChange={handleFileUpload}
         />
         {isUploaded && (
           <span role="img" aria-label="Uploaded" className="text-green-500">
