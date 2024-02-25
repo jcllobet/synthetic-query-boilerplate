@@ -34,10 +34,11 @@ export function Comparison() {
           </div>
         </div>
       </div>
-      <div className="flex justify-center mb-10">
-        <UploadPdf />
-      </div>
+
       <div className="bg-gray-50 border border-gray-200 dark:bg-gray-950 dark:border-gray-800 py-3">
+        <div className="container gap-4 px-4 md:grid-cols-2 md:py-3 lg:gap-6 lg:px-6">
+          <UploadPdf />
+        </div>
         <div className="container grid gap-4 px-4 md:grid-cols-2 md:py-3 lg:gap-6 lg:px-6">
           <div className="p-4 rounded-lg bg-white shadow">
             <div className="space-y-4">
